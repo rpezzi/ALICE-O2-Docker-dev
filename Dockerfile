@@ -15,9 +15,15 @@ RUN yum install -y python-pip gcc gcc-c++ gcc-gfortran make patch sed \
   environment-modules && yum clean all
 
 
+
 RUN pip install --upgrade pip
 RUN pip install pyyaml
 
-
 ENV PATH $PATH:/data/sw/alice/alibuild/
 
+ENV USER_DIR /data/sw/alice/
+
+ADD setuser.sh /bin/
+ADD wrapper.sh /bin/
+
+ENTRYPOINT /bin/wrapper.sh "/bin/bash --init-file /etc/bashrc"
