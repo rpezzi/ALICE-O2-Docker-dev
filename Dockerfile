@@ -4,26 +4,30 @@ WORKDIR /data/sw/alice
 
 RUN yum -y install epel-release && yum clean all
 
-RUN yum install -y python-pip gcc gcc-c++ gcc-gfortran make patch sed \
-  libX11-devel libXft-devel libXpm-devel libXext-devel \
-  libXmu-devel mesa-libGLU-devel mesa-libGL-devel ncurses-devel \
-  curl curl-devel bzip2 bzip2-devel gzip unzip tar \
-  expat-devel subversion git flex bison imake redhat-lsb-core python-devel \
-  libxml2-devel wget openssl-devel krb5-devel \
-  automake autoconf libtool which perl-ExtUtils-Embed.noarch \
-  mariadb.x86_64 mariadb-devel.x86_64 mariadb-server.x86_64 \
-  environment-modules && yum clean all
+RUN yum install -y git mysql-devel curl curl-devel bzip2 bzip2-devel unzip autoconf \
+    automake texinfo gettext gettext-devel libtool freetype freetype-devel libpng \
+    libpng-devel sqlite sqlite-devel ncurses-devel mesa-libGLU-devel libX11-devel \
+    libXpm-devel libXext-devel libXft-devel libxml2 libxml2-devel motif motif-devel \
+    kernel-devel pciutils-devel kmod-devel bison flex perl-ExtUtils-Embed \
+    environment-modules tk-devel nano python-requests python3-pip
 
+RUN yum install -y centos-release-scl
 
+RUN yum-config-manager --enable rhel-server-rhscl-7-rpms
 
-RUN pip install --upgrade pip
-RUN pip install pyyaml
+RUN yum install -y devtoolset-7
+ 
+RUN yum clean all
 
-ENV PATH $PATH:/data/sw/alice/alibuild/
+RUN  pip3 install alibuild --upgrade
 
 ENV USER_DIR /data/sw/alice/
 
+ENV ALIBUILD_WORK_DIR /data/sw/alice/sw
+
 ADD setuser.sh /bin/
+
 ADD wrapper.sh /bin/
 
-ENTRYPOINT /bin/wrapper.sh "/bin/bash --init-file /etc/bashrc"
+ENTRYPOINT /bin/wrapper.sh "/bin/bash"
+
