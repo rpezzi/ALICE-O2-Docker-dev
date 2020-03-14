@@ -1,33 +1,32 @@
-FROM centos:7
+FROM ubuntu:18.04
 
-WORKDIR /data/sw/alice
+WORKDIR /home/alidocklite
 
-RUN yum -y install epel-release && yum clean all
+RUN apt-get update && apt-get -y upgrade && apt-get clean
 
-RUN yum install -y git mysql-devel curl curl-devel bzip2 bzip2-devel unzip autoconf \
-    automake texinfo gettext gettext-devel libtool freetype freetype-devel libpng \
-    libpng-devel sqlite sqlite-devel ncurses-devel mesa-libGLU-devel libX11-devel \
-    libXpm-devel libXext-devel libXft-devel libxml2 libxml2-devel motif motif-devel \
-    kernel-devel pciutils-devel kmod-devel bison flex perl-ExtUtils-Embed \
-    environment-modules tk-devel nano python-requests python3-pip
+RUN apt-get install -y curl libcurl4-gnutls-dev build-essential gfortran cmake libmysqlclient-dev \
+                   xorg-dev libglu1-mesa-dev libfftw3-dev libxml2-dev git unzip \
+                   autoconf automake autopoint texinfo gettext libtool libtool-bin  && apt-get clean
 
-RUN yum install -y centos-release-scl
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN yum-config-manager --enable rhel-server-rhscl-7-rpms
+RUN apt-get install -y pkg-config bison flex libperl-dev libbz2-dev swig liblzma-dev libnanomsg-dev \
+                   libyaml-cpp-dev rsync lsb-release unzip environment-modules python3-pip ninja-build  \
+                   python3-setuptools python3-dev python-dev libglfw3-dev libglfw3  && apt-get clean
 
-RUN yum install -y devtoolset-7
- 
-RUN yum clean all
+RUN pip3 install --upgrade pip
 
-RUN  pip3 install alibuild --upgrade
+RUN pip3 install alibuild --upgrade
 
-ENV USER_DIR /data/sw/alice/
+ENV USER_DIR /home/alidocklite/
 
-ENV ALIBUILD_WORK_DIR /data/sw/alice/sw
+ENV ALIBUILD_WORK_DIR /home/alidocklite/sw/
 
 ADD setuser.sh /bin/
 
 ADD wrapper.sh /bin/
+
+CMD eval "`alienv shell-helper`" && ./alidock-init.sh
 
 ENTRYPOINT /bin/wrapper.sh "/bin/bash"
 
