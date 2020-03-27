@@ -12,7 +12,7 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 
 2. Get alidocklite
 
-    `mkdir ~/alice`
+    `mkdir -p ~/alice ; cd ~/alice`
 
     `git clone https://github.com/rpezzi/alidocklite.git`
 
@@ -34,9 +34,9 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
     * Tip: Add your user to the docker group. See how to [Manage Docker as a non-root user](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user).
     * Note: Docker runs as root. See [Docker Daemon attack surface](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) in [Docker security](https://docs.docker.com/engine/security/security/) for more info.
 
-2. Download alidocklite
+2. Get alidocklite
 
-    `cd ~/alice`
+    `mkdir -p ~/alice ; cd ~/alice`
 
     `$ git clone https://github.com/rpezzi/alidocklite.git alidocklite`
 
