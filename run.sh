@@ -3,8 +3,9 @@
 LOCALDIR=$HOME/alidocklite # shared dir on the host
 WORKDIR=/home/alidocklite  # shared dir inside the container
 NAME=alidocklite
+IMAGE=${1:-"rpez/alidocklite"}
 
-ALIDOCKLITE_RUN_CMD="docker run -d -it -p 22222:22 --hostname $NAME --name $NAME -e HOSTUSER=$USER  -v $LOCALDIR:$WORKDIR alidocklite_ubuntu18.04"
+ALIDOCKLITE_RUN_CMD="docker run -d -it -p 22222:22 --hostname $NAME --name $NAME -e HOSTUSER=$USER  -v $LOCALDIR:$WORKDIR $IMAGE"
 
 ALIDOCKLITE_ENTER_CMD="ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -XC 0.0.0.0 -p 22222 -i $LOCALDIR/.alidock-ssh/alidock.pem"
 

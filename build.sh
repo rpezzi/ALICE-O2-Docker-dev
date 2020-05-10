@@ -1,4 +1,6 @@
 #!/bin/bash
 
-echo docker build -t alidocklite_ubuntu18.04 .
-docker build -t alidocklite_ubuntu18.04 .
+IMAGE=${1:-"alidocklite"}
+
+echo docker build -t $IMAGE .
+docker build -t $IMAGE .

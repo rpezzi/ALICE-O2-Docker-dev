@@ -12,21 +12,23 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 
 2. Get alidocklite
 
-    `mkdir -p ~/alice ; cd ~/alice`
+    `$ mkdir -p ~/alice ; cd ~/alice`
 
-    `git clone https://github.com/rpezzi/alidocklite.git`
+    `$ git clone https://github.com/rpezzi/alidocklite.git`
+    
+3. Run to enter alidockdev container
 
-    `cd alidocklite`
+    `$ cd alidocklite`
 
-    `docker pull rpez/alidocklite:ubuntu18.04`
+    `$ ./run.sh`
 
-    `docker tag rpez/alidocklite:ubuntu18.04 alidocklite_ubuntu18.04`
+    Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html). Typical O2 building steps:
 
-3. Run and enter alidockdev container
+    `$ aliBuild init O2@dev --defaults o2`
 
-    `./run.sh`
+    `$ aliBuild build O2 --defaults o2`
 
-  Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html).  
+    `$ alienv enter O2/latest-dev-o2`
 
 ## Instructions for building alidocklite docker image from source
 
@@ -44,13 +46,11 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 
     `$ cd alidocklite`
 
-    `$ ./build.sh`
+    `$ ./build.sh alidocklite`
 
 4. Run and enter alidockdev container
 
-    `$ ./run.sh`
-
-Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html).  
+    `$ ./run.sh alidocklite`
 
 5. Stop the container with
 
@@ -58,9 +58,9 @@ Inside the container you can use aliBuild and alienv to enter the desired enviro
 
 ### Tips
 
-* Add an alias to enter alidocklite to `.bashrc`
+* Create an alias to enter alidocklite with `alidocklite`. Add the following line to `.bashrc`
   * `alias alidocklite=$HOME/alice/alidocklite/run.sh`
 
 ## Disclaimer
 
-This project has been created mainly for personal use. It is not an official ALICE software project. There is no guarantee for updates nor continued support. Use at your own risk.
+This project is not an official ALICE software project. It has been created mainly for personal use. There is no guarantee for updates nor continued support. Use at your own risk, but feedback is greatly appreaciated.
