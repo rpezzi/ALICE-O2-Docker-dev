@@ -12,6 +12,7 @@ ALIDOCKLITE_ENTER_CMD="ssh -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyCh
 ALIDOCKLITE_RM_CMD="docker rm $NAME"
 
 mkdir -p $LOCALDIR
+chmod 700 $LOCALDIR
 
 $ALIDOCKLITE_RUN_CMD &> /dev/null
 if [ $? == 0 ];
