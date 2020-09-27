@@ -14,7 +14,7 @@ RUN apt-get install -y curl libcurl4-gnutls-dev build-essential gfortran cmake l
                    libbz2-dev swig liblzma-dev libnanomsg-dev libyaml-cpp-dev rsync lsb-release \
                    unzip environment-modules python3-pip ninja-build python3-setuptools python3-dev \
                    python-dev libglfw3-dev libglfw3 ssh sudo emacs-nox tclsh nano parallel \
-                   python3-matplotlib bc && apt-get clean
+                   python3-matplotlib bc python3-venv && apt-get clean
 
 
 RUN pip3 install --upgrade pip
