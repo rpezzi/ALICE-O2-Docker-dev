@@ -20,9 +20,10 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 
     `$ cd alidocklite`
 
-    `$ ./run.sh`
+    `$ ./alidocklite -t alidocklite_custom` 
 
-    Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html). Typical O2 building steps:
+
+Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html). Typical O2 building steps:
 
     `$ aliBuild init O2@dev --defaults o2`
 
@@ -46,11 +47,11 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 
     `$ cd alidocklite`
 
-    `$ ./build.sh alidocklite`
+    `$ ./alidocklite --build`
 
-4. Run and enter alidockdev container
+4. Run and enter custom alidocklite container
 
-    `$ ./run.sh alidocklite`
+    `$ ./alidocklite --image alidocklite_custom`
 
 5. Stop the container with
 
@@ -59,8 +60,8 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
 ### Tips
 
 * Create an alias to enter alidocklite with `alidocklite`. Add the following line to `.bashrc`
-  * `alias alidocklite=$HOME/alice/alidocklite/run.sh`
+  * `alias alidocklite=$HOME/alice/alidocklite/alidocklite`
 
 ## Disclaimer
 
-This project is not an official ALICE software project. It has been created mainly for personal use. There is no guarantee for updates nor continued support. Use at your own risk, but feedback is greatly appreaciated.
+This project is not an official ALICE software project. Feedback is greatly appreaciated.
