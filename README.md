@@ -15,13 +15,14 @@ Out of the box, the workdir is configured to ~/alidocklite on the host and /home
     `$ mkdir -p ~/alice ; cd ~/alice`
 
     `$ git clone https://github.com/rpezzi/alidocklite.git`
-    
-3. Run to enter alidockdev container
+
+3. Enter alidockdev container
 
     `$ cd alidocklite`
 
-    `$ ./alidocklite -t alidocklite_custom` 
+    `$ ./alidocklite`
 
+At first run it will download Alidocklite image from DockerHub.
 
 Inside the container you can use aliBuild and alienv to enter the desired environment, as described in [Build ALICE packages](https://alice-doc.github.io/alice-analysis-tutorial/building/build.html). Typical O2 building steps:
 
