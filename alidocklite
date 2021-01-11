@@ -6,7 +6,7 @@ Usage()
   ${0##*/}: A light container for ALICE software
 
   Usage:
-      
+
       --localhome <path>
         sets the container's home directory on the host machine (default ~/alidocklite)
 
@@ -23,8 +23,8 @@ Usage()
         Sets the shared memory size (default 3g)
 
       --port <port>
-        ssh port used by the container. Used by localhost only. (default 22222) 
-   
+        ssh port used by the container. Used by localhost only. (default 22222)
+
       --build
         Builds the container from DOCKERFILE at the  ${0##*/} dir.
         In this system: `dirname "$0"`
@@ -50,7 +50,7 @@ build () {
 		    ;;
          esac
     fi
-    BUILDCMD="docker build -t ${IMAGE} $ALIDOCKLITEDOCKERFILE"
+    BUILDCMD="docker build --no-cache -t ${IMAGE} $ALIDOCKLITEDOCKERFILE"
     echo ${BUILDCMD}
     ${BUILDCMD}
     if ! [ $?==0 ]
@@ -59,7 +59,7 @@ build () {
     echo "${0##*/} -t ${IMAGE}"
     exit
     fi
-    
+
 
 }
 
@@ -67,14 +67,15 @@ alidocklite_ () {
 
 SSHQUIET=${SSHQUIET:-"-q"}
 SSHPORT=${SSHPORT:-"22222"}
-DUMP_OUTPUT=${DUMP_OUTPUT:-"| tee /dev/null # "} 
+JUPYTERPORT=8890
+DUMP_OUTPUT=${DUMP_OUTPUT:-"| tee /dev/null # "}
 LOCALDIR=${LOCALDIR:-"$HOME/alidocklite"} # shared dir on the host
 IMAGE=${IMAGE:-"rpez/alidocklite"}
 SHMSIZE=$SHMSIZE:-"3g"
 WORKDIR=/home/alidocklite  # shared dir inside the container
 NAME=alidocklite
 
-ALIDOCKLITE_RUN_CMD="docker run -d -it --shm-size=3g -p ${SSHPORT}:22 --hostname $NAME --name $NAME -e HOSTUSER=$USER  -v $LOCALDIR:$WORKDIR $IMAGE"
+ALIDOCKLITE_RUN_CMD="docker run -d -it --shm-size=3g -p ${SSHPORT}:22 -p ${JUPYTERPORT}:8890 --hostname $NAME --name $NAME -e HOSTUSER=$USER  -v $LOCALDIR:$WORKDIR $IMAGE"
 ALIDOCKLITE_ENTER_CMD="ssh ${SSHQUIET} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -XC -p ${SSHPORT} -i $LOCALDIR/.alidock-ssh/alidock.pem 0.0.0.0  ${CMD}"
 ALIDOCKLITE_RM_CMD="docker rm $NAME"
 
@@ -108,14 +109,14 @@ while [ $# -gt 0 ] ; do
 case $1 in
       --help|-h)
       Usage
-      exit 
+      exit
       ;;
     --localhome)
-	LOCALDIR="$1" 
+	LOCALDIR="$1"
       shift 2
       ;;
     --image)
-	IMAGE="$2" 
+	IMAGE="$2"
       shift 2
       ;;
       --shm-size)
@@ -143,7 +144,7 @@ case $1 in
 	  shift 1
 	  CMD="$@"
 	  alidocklite_
-          exit     
+          exit
       ;;
       -h)
       Usage
@@ -151,7 +152,7 @@ case $1 in
       *) echo "Wrong input"; Usage;
 
 
-	 
+
 
 esac
 done
@@ -164,4 +165,3 @@ fi
 
 
 alidocklite_
-
