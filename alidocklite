@@ -66,14 +66,14 @@ build () {
 alidocklite_ () {
 
 SSHQUIET=${SSHQUIET:-"-q"}
-SSHPORT=${SSHPORT:-"22222"}
+SSHPORT=${SSHPORT:-"2${UID}"}
 JUPYTERPORT=8890
 DUMP_OUTPUT=${DUMP_OUTPUT:-"| tee /dev/null # "}
 LOCALDIR=${LOCALDIR:-"$HOME/alidocklite"} # shared dir on the host
 IMAGE=${IMAGE:-"rpez/alidocklite"}
 SHMSIZE=$SHMSIZE:-"3g"
 WORKDIR=/home/alidocklite  # shared dir inside the container
-NAME=alidocklite
+NAME=alidocklite_$USER
 
 ALIDOCKLITE_RUN_CMD="docker run -d -it --shm-size=3g -p ${SSHPORT}:22 -p ${JUPYTERPORT}:8890 --hostname $NAME --name $NAME -e HOSTUSER=$USER  -v $LOCALDIR:$WORKDIR $IMAGE"
 ALIDOCKLITE_ENTER_CMD="ssh ${SSHQUIET} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -XC -p ${SSHPORT} -i $LOCALDIR/.alidock-ssh/alidock.pem 0.0.0.0  ${CMD}"
