@@ -67,7 +67,7 @@ alidocklite_ () {
 
 SSHQUIET=${SSHQUIET:-"-q"}
 SSHPORT=${SSHPORT:-"2${UID}"}
-JUPYTERPORT=8890
+JUPYTERPORT=$UID
 DUMP_OUTPUT=${DUMP_OUTPUT:-"| tee /dev/null # "}
 LOCALDIR=${LOCALDIR:-"$HOME/alidocklite"} # shared dir on the host
 IMAGE=${IMAGE:-"rpez/alidocklite"}
